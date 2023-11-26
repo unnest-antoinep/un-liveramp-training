@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 EXPOSE $PORT
 
 # Use uvicorn as the entrypoint
-ENTRYPOINT [ "/bin/bash", "-c", "uvicorn api.main:app --host 0.0.0.0 --port ${PORT}"]
+ENTRYPOINT [ "/bin/bash", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]
