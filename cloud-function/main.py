@@ -14,6 +14,7 @@ def clean_columns(df):
     df.columns = df.columns.str.replace(r'[', '')
     df.columns = df.columns.str.replace(r']', '')
     df.columns = df.columns.str.replace('.', '_')
+    # coucou
     return df.columns.str.replace(' ', '_')
 
 @functions_framework.http

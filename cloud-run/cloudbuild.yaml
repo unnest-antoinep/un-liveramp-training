@@ -1,11 +1,13 @@
 steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'eu.gcr.io/un-liveramp-training/fruit-api-to-bq', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'eu.gcr.io/un-liveramp-training/fruit-api-to-bq']
+# Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  args:
-  - gcloud
-  - functions
-  - deploy
-  -  liveramp-fruit-cloudbuild
-  - --region=europe-west1
-  - --source=.
-  - --trigger-http
-  - --runtime=python311
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'fruit-ingestion-cloud-run', '--image', 'eu.gcr.io/un-liveramp-training/fruit-api-to-bq', '--region', 'europe-west1']
+images:
+- gcr.io/un-liveramp-training/fruit-api-to-bq
